@@ -5,11 +5,6 @@ import Bot.data
 
 bot = telebot.TeleBot(Bot.config.token)
 
-@bot.message_handler(commands=['game'])
-def say(message):
-    markup = Bot.bot.generate_markup()
-    bot.send_message(message.chat.id,'q',reply_markup=markup)
-
 @bot.message_handler(commands=['new'])
 def registration(message):
     Bot.bot.users[message.chat.id] = Bot.data.User()
@@ -24,9 +19,13 @@ def reg(message):
 
     if Bot.bot.users[message.chat.id].lastName == None:
         Bot.bot.users[message.chat.id].lastName = message.text
-        bot.send_message(message.chat.id,'Вы зареганы')
+        markup = Bot.bot.generate_markup()
+        bot.send_message(message.chat.id,'Выберите вуз',reply_markup=markup)
         return
-    bot.send_message(message.chat.id,'{0} {1}'.format(Bot.bot.users[message.chat.id].firstName,Bot.bot.users[message.chat.id].lastName))
+
+    if Bot.bot.users[message.chat.id].university == None:
+        Bot.bot.users[message.chat.id].university = message.text
+    bot.send_message(message.chat.id,'{0} {1} {2}'.format(Bot.bot.users[message.chat.id].firstName,Bot.bot.users[message.chat.id].lastName,Bot.bot.users[message.chat.id].university))
 
 
 

@@ -5,8 +5,9 @@ users = {}
 
 def generate_markup():
     markup = telebot.types.ReplyKeyboardMarkup(one_time_keyboard=True,resize_keyboard=True)
-    markup.add('Ye')
-    markup.add('No')
+    markup.add('ЛЭТИ')
+    markup.add('СПБГУ')
+    markup.add('ИТМО')
     return markup
 
 def registration(message,id):
@@ -19,6 +20,9 @@ def registration(message,id):
 
     if users[id].lastName == None:
         users[id].lastName = message
+
+    if users[id].university == None:
+        users[id].university = message
 
 
 
