@@ -27,9 +27,5 @@ def reg(message):
         Bot.bot.users[message.chat.id].university = message.text
     bot.send_message(message.chat.id,'{0} {1} {2}'.format(Bot.bot.users[message.chat.id].firstName,Bot.bot.users[message.chat.id].lastName,Bot.bot.users[message.chat.id].university))
 
-
-
-
-
 if __name__ == '__main__':
     bot.polling(none_stop=True)
