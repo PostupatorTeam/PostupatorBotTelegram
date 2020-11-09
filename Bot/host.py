@@ -1,6 +1,6 @@
 import telebot
 from Bot.config import token
-from Bot.data import *
+from Bot.userData import add_data,add_user,users
 
 bot = telebot.TeleBot(token)
 
@@ -19,19 +19,8 @@ def send_message(message):
         if result == 0:
             bot.send_message(message.chat.id,'Введите фамилию')
         elif result == 1:
-            bot.send_message(message.chat.id,'Введите баллы')
+            bot.send_message(message.chat.id, 'Введите Отчество')
         elif result == 2:
-            bot.send_message(message.chat.id,'Вы зареганы')
-
-
-def add_data(id,answer):
-    if users[id].firstName == None:
-        add_firstName_user(id,answer)
-        return 0
-    if users[id].lastName == None:
-        add_lastName_user(id,answer)
-        return 1
-    if users[id].points == None:
-        add_points_user(id,answer)
-        return 2
-    return 3
+            bot.send_message(message.chat.id,'Введите баллы')
+        elif result == 3:
+            bot.send_message(message.chat.id, 'Вы зареганы')
