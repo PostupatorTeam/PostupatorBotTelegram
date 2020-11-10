@@ -1,6 +1,7 @@
 import telebot
 from Bot.config import token
 from Bot.userData import add_data,add_user,users
+from Bot.markup import generate_markup
 
 bot = telebot.TeleBot(token)
 
@@ -14,13 +15,18 @@ def send_register(message):
 
 @bot.message_handler(content_types=['text'])
 def send_message(message):
-    if(message.chat.id in users):
-        result = add_data(message.chat.id,message.text)
+    id = message.chat.id
+    if(id in users and not users[id].isRegistered):
+        if message.text == 'Завершить регистрацию':
+            users[id].isRegistered = True
+            bot.send_message(id,'Вы зареганы')
+            return
+        result = add_data(id,message.text)
         if result == 0:
-            bot.send_message(message.chat.id,'Введите фамилию')
+            bot.send_message(id,'Введите фамилию')
         elif result == 1:
-            bot.send_message(message.chat.id, 'Введите Отчество')
+            bot.send_message(id, 'Введите Отчество')
         elif result == 2:
-            bot.send_message(message.chat.id,'Введите баллы')
+            bot.send_message(id,'Введите баллы')
         elif result == 3:
-            bot.send_message(message.chat.id, 'Вы зареганы')
+            bot.send_message(id, 'Выберите вуз',reply_markup=generate_markup(users[id]))

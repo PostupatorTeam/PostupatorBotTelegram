@@ -6,6 +6,8 @@ class User:
         self.surname = None
         self.patronymic = None
         self.points = None
+        self.universities = []
+        self.isRegistered = False
 
 def add_data(id,answer):
     if users[id].firstName == None:
@@ -20,7 +22,9 @@ def add_data(id,answer):
     if users[id].points == None:
         add_points_user(id,answer)
         return 3
-    return 4
+    add_university_user(id,answer)
+    return 3
+
 
 def add_user(id):
     users[id] = User()
@@ -37,6 +41,9 @@ def add_patronymic_user(id,name):
 def add_points_user(id,points):
     users[id].points = points
 
+def add_university_user(id,university):
+    users[id].universities.append(university)
+
 def get_firstName_user(id):
     return users[id].firstName
 
@@ -48,5 +55,8 @@ def get_patronymic_user(id):
 
 def get_points_user(id):
     return users[id].points
+
+def get_universities_user(id):
+    return users[id].universities
 
 
