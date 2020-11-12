@@ -20,6 +20,11 @@ def send_register(message):
 def send_message(message):
     id = message.chat.id
     if id in users and not users[id].isRegistered:
+        register_logic(message)
+
+def register_logic(message):
+    id = message.chat.id
+    if id in users and not users[id].isRegistered:
         if message.text == 'Завершить регистрацию' and len(users[id].universities)>0:
             users[id].isRegistered = True
             bot.send_message(id, 'Вы зареганы')
