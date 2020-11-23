@@ -1,18 +1,26 @@
-import telebot
+from telebot import types
+import Bot.config
 
-universities = ['СПБГУ','ЛЭТИ','ИТМО','МФТИ','ВШЭ']
 
-def generate_markup(user):
-    universities = get_universities(user)
-    markup = telebot.types.ReplyKeyboardMarkup(one_time_keyboard=True,resize_keyboard=True)
+def get_markup(user,message):
+    if user.points == None:
+        return types.ReplyKeyboardRemove()
+    if message == 'Вы успешно зарегестрировались':
+        return types.ReplyKeyboardRemove()
+    markup = create_markup(user)
+    return markup
+
+def create_markup(user):
+    universities = get_universities_markup(user)
+    markup = types.ReplyKeyboardMarkup(one_time_keyboard=True,resize_keyboard=True)
     for university in universities:
         markup.add(university)
     markup.add('Завершить регистрацию')
     return markup
 
-def get_universities(user):
+def get_universities_markup(user):
     result = []
-    for university in universities:
+    for university in Bot.config.universities:
         is_selected = False
         for user_university in user.universities:
             if university == user_university:

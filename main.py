@@ -1,5 +1,5 @@
-import Bot.host
+import Bot.handlers
 
 
 if __name__ == '__main__':
-    Bot.host.host()
+    Bot.handlers.start()
