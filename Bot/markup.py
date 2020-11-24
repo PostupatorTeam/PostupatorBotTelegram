@@ -3,7 +3,7 @@ import Bot.config
 
 
 def get_markup(user,message):
-    if user.points == None or message == 'Вы успешно зарегестрировались' or not user.isAddUniversity:
+    if user.patronymic == None or message == 'Вы успешно зарегестрировались' or not user.isAddUniversity:
         return types.ReplyKeyboardRemove()
     markup = create_markup(user)
     return markup
