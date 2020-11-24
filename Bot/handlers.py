@@ -19,9 +19,7 @@ def send_message(message):
     if id in users and not users[id].isRegistered:
         bot_message = get_registration_message(message)
         bot.send_message(id, bot_message, reply_markup=get_markup(users[id],bot_message))
-    elif id in users:
-        bot.send_message(id,'Вы зарегистрированы',reply_markup=telebot.types.ReplyKeyboardRemove())
-    else:
+    if not id in users:
         bot.send_message(id,'Вы не зарегистрированы',reply_markup=telebot.types.ReplyKeyboardRemove())
 
 @bot.message_handler(commands=['position'])

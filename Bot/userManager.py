@@ -93,6 +93,7 @@ def add_data_user(id, message, data_type):
         return 'Вы успешно зарегестрировались'
 
 
+
 def get_registration_message(message):
     id = message.chat.id
     if not id in users:
