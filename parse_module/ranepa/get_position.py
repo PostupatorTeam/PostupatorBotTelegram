@@ -18,27 +18,23 @@ class Student:
     program: Program
 
 
-def html_string_to_simple_string(string: str) -> str:
-    return string.replace("\t", "").replace("\n", "").replace(" ", "")
-
-
 def add_link_element(link: str, current_element: str) -> str:
     soup = soup_maker.make_soup(link, False)
 
     for a in soup.find_all("table")[0].find_all("tbody")[0].find_all("a"):
-        if html_string_to_simple_string(a.string) == current_element:
+        if a.string.strip() == current_element:
             return a["href"]
 
-    raise Exception("Cannot find element with this name.")
+    raise Exception("Can not find element with this name.")
 
 
 def get_link_to_table(program: Program) -> str:
     link = "https://lk.ranepa.ru/pk/list.php?FT=1&FL=0"
 
-    link += add_link_element(link, program.departament.replace(" ", ""))
-    link += add_link_element(link, program.approval.replace(" ", ""))
-    link += add_link_element(link, program.form.replace(" ", ""))
-    link += add_link_element(link, program.program.replace(" ", ""))
+    link += add_link_element(link, program.departament)
+    link += add_link_element(link, program.approval)
+    link += add_link_element(link, program.form)
+    link += add_link_element(link, program.program)
 
     return link
 
@@ -50,10 +46,10 @@ def get_position(student: Student) -> int:
     for tr in soup.find_all("table")[0].find_all("tbody")[0].find_all("tr"):
         tds = tr.find_all("td")
 
-        place = html_string_to_simple_string(tds[0].string)
-        fio = html_string_to_simple_string(tds[1].find_all("a")[0].string)
+        place = tds[0].string.strip()
+        fio = tds[1].find_all("a")[0].string.strip()
 
-        if fio == student.surname + student.name + student.lastname:
+        if fio == f"{student.surname} {student.name} {student.lastname}":
             return int(place)
 
     raise Exception("Can not find student with data.")

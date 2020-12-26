@@ -16,10 +16,6 @@ class Student:
     program: Program
 
 
-def html_string_to_simple_string(string: str) -> str:
-    return string.replace("\t", "").replace("\n", "").replace(" ", "")
-
-
 def get_position(student: Student) -> int:
     link = get_link_to_table(student.program)
     soup = soup_maker.make_soup(link, False)
@@ -28,11 +24,11 @@ def get_position(student: Student) -> int:
         for td in tr.find_all("td"):
             number = 0
 
-            if html_string_to_simple_string(td["class"][0]) == "number":
-                number = html_string_to_simple_string(td.string)
+            if td["class"][0] == "number":
+                number = td.string.strip()
 
             if td["class"][0] == "fio":
-                if html_string_to_simple_string(td.string) == student.surname + student.name + student.lastname:
+                if td.string.strip() == f"{student.surname} + {student.name} + {student.lastname}":
                     return int(number)
 
     raise Exception("Can not find student with this data.")
@@ -48,10 +44,10 @@ def get_link_to_table(program: Program) -> str:
 
         if program_name == program.program:
             if program.form == "Бюджет":
-                link += html_string_to_simple_string(tr.find_all("td")[2].find_all("a")[0]["href"])
+                link += tr.find_all("td")[2].find_all("a")[0]["href"]
                 return link
             if program.form == "Коммерция":
-                link += html_string_to_simple_string(tr.find_all("td")[3].find_all("a")[0]["href"])
+                link += tr.find_all("td")[3].find_all("a")[0]["href"]
                 return link
 
     raise Exception("Can not find educational program with this data.")
