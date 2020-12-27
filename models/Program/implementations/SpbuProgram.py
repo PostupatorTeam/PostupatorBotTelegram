@@ -8,3 +8,6 @@ class SpbuProgram(implements(Program)):
     educational_form: str
     pay_form: str
     program: str
+
+    def __str__(self) -> str:
+        return f"{self.program}/{self.educational_form}/{self.pay_form}"

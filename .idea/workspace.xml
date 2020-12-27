@@ -25,19 +25,33 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ea950e90-2af7-4000-8c55-8e0779ef1a64" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/models/ConcreteUniversityStudent/implementations/EtuStudent.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/ConcreteUniversityStudent/implementations/RanepaStudent.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/ConcreteUniversityStudent/implementations/SpbuStudent.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/ConcreteUniversityStudent/interface/ConcreteUniversityStudent.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/Program/implementations/EtuProgram.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/Program/implementations/RanepaProgram.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/Program/implementations/SpbuProgram.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/Program/interface/Program.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/Student.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/University/implementations/EtuUniversity.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/University/implementations/RanepaUniversity.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/University/implementations/SpbuUniversity.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/University/interface/University.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/config.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database_module/database_module.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mapping_module/mapping_module.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/middle_module/middle_module.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/parsing_module/parsing_module.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/telegram_module/telegram_module.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/ConcreteUniversityStudent/implementations/EtuStudent.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/ConcreteUniversityStudent/implementations/EtuStudent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/ConcreteUniversityStudent/implementations/RanepaStudent.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/ConcreteUniversityStudent/implementations/RanepaStudent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/ConcreteUniversityStudent/implementations/SpbuStudent.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/ConcreteUniversityStudent/implementations/SpbuStudent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/ConcreteUniversityStudent/interface/ConcreteUniversityStudent.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/ConcreteUniversityStudent/interface/ConcreteUniversityStudent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/Program/implementations/EtuProgram.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/Program/implementations/EtuProgram.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/Program/implementations/RanepaProgram.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/Program/implementations/RanepaProgram.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/Program/implementations/SpbuProgram.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/Program/implementations/SpbuProgram.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/Student.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/Student.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/University/implementations/EtuUniversity.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/University/implementations/EtuUniversity.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/University/implementations/RanepaUniversity.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/University/implementations/RanepaUniversity.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/University/implementations/SpbuUniversity.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/University/implementations/SpbuUniversity.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/University/interface/University.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/University/interface/University.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parse_module/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/parse_module/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/parse_module/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/parse_module/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/parse_module/.idea/parse_module.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/parse_module/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/parse_module/.idea/workspace.xml" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -190,5 +204,9 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="775" height="419" key="XDebugger.FullValuePopup/0.0.1536.824@0.0.1536.824" timestamp="1605944803808" />
+    <state x="0" y="0" width="1307" height="780" key="dock-window-1" timestamp="1609082649699">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="0" y="0" width="1307" height="780" key="dock-window-1/0.0.1536.824@0.0.1536.824" timestamp="1609082649699" />
   </component>
 </project>

@@ -9,3 +9,6 @@ class RanepaProgram(implements(Program)):
     approval: str
     form: str
     program: str
+
+    def __str__(self) -> str:
+        return f"{self.departament}/{self.approval}/{self.form}/{self.program}"

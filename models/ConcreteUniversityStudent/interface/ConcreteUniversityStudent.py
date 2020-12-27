@@ -1,4 +1,6 @@
+from typing import Tuple, List
 from interface import Interface
+from models.Program.interface.Program import Program
 
 
 class ConcreteUniversityStudent(Interface):
@@ -6,4 +8,4 @@ class ConcreteUniversityStudent(Interface):
     name: str
     surname: str
     lastname: str
-    programs: list
+    programs: List[Tuple[Program, int]]

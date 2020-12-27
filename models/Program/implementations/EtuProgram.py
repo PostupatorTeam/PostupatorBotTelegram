@@ -7,3 +7,6 @@ from models.Program.interface import Program
 class EtuProgram(implements(Program)):
     form: str
     program: str
+
+    def __str__(self) -> str:
+        return f"{self.form}/{self.program}"
