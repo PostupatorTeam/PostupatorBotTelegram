@@ -1,12 +1,11 @@
 from dataclasses import dataclass
 from typing import Tuple, List
-from interface import implements
-from models.ConcreteUniversityStudent.interface import ConcreteUniversityStudent
+from models.ConcreteUniversityStudent.interface.ConcreteUniversityStudent import ConcreteUniversityStudent
 from models.Program.implementations.RanepaProgram import RanepaProgram
 
 
 @dataclass
-class RanepaStudent(implements(ConcreteUniversityStudent)):
+class RanepaStudent(ConcreteUniversityStudent):
     id: str
     name: str
     surname: str

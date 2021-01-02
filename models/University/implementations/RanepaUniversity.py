@@ -1,16 +1,15 @@
 import logging
 from typing import List, Tuple
-from interface import implements
 from werkzeug.exceptions import BadRequest
 from models.Program.implementations.RanepaProgram import RanepaProgram
-from models.University.interface import University
+from models.University.interface.University import University
 from parsing_module.parsers import ranepa_parser
 
 
 parser = ranepa_parser
 
 
-class RanepaUniversity(implements(University)):
+class RanepaUniversity(University):
     programs: List[RanepaProgram]
 
     def __init__(self, programs: List[RanepaProgram]):
@@ -27,4 +26,4 @@ class RanepaUniversity(implements(University)):
                 logging.warning(message)
                 raise BadRequest("Не удалось подключиться к сайту университета РАНХИГС.")
 
-            return result
+        return result

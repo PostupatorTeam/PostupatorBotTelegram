@@ -1,16 +1,15 @@
 import logging
 from typing import List, Tuple
-from interface import implements
 from werkzeug.exceptions import BadRequest
 from models.Program.implementations.EtuProgram import EtuProgram
-from models.University.interface import University
+from models.University.interface.University import University
 from parsing_module.parsers import etu_parser
 
 
 parser = etu_parser
 
 
-class EtuUniversity(implements(University)):
+class EtuUniversity(University):
     programs: List[EtuProgram]
 
     def __init__(self, programs: List[EtuProgram]):

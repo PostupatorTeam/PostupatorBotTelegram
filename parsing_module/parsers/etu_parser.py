@@ -50,5 +50,5 @@ def get_position(name: str, surname: str, lastname: str, program: EtuProgram) ->
         f"Failure to find student with this name on the Etu university site was detecting in EtuUniversity class."
     logging.warning(message)
     message = \
-        f"Не удалось найти абитуриента с такими данными в таблице {str(program)} на сайте университета РАНХИГС."
+        f"Не удалось найти абитуриента с такими данными в таблице {str(program)} на сайте университета ЛЭТИ."
     raise NotFound(message)
