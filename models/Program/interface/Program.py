@@ -1,5 +1,5 @@
-from interface import Interface
+from abc import ABCMeta
 
 
-class Program(Interface):
-    program: str
+class Program:
+    __metaclass__ = ABCMeta

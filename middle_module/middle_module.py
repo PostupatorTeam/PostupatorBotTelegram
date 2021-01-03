@@ -11,6 +11,9 @@ from models.ConcreteUniversityStudent.interface.ConcreteUniversityStudent import
 from models.Program.interface.Program import Program
 
 
+database_module = database_module
+
+
 def notifications() -> Dict[str, Dict[str, List[Tuple[Program, int]]]]:
     concrete_students = database_module.get_all_with_notifications()
 

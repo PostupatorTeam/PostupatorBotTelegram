@@ -1,18 +1,15 @@
 import logging
 from typing import List, Tuple
-from interface import implements
-from werkzeug.exceptions import BadRequest, NotFound
+from werkzeug.exceptions import BadRequest
 from models.Program.implementations.SpbuProgram import SpbuProgram
-from models.University.interface import University
+from models.University.interface.University import University
+from parsing_module.parsers import spbu_parser
 
 
-def get_position_for_current_program(name: str, surname: str, lastname: str, program: SpbuProgram) -> \
-        Tuple[SpbuProgram, int]:
-    # InternalError
-    pass
+parser = spbu_parser
 
 
-class SpbuUniversity(implements(University)):
+class SpbuUniversity(University):
     programs: List[SpbuProgram]
 
     def __init__(self, programs: List[SpbuProgram]):
@@ -23,10 +20,10 @@ class SpbuUniversity(implements(University)):
 
         for program in self.programs:
             try:
-                result.append(get_position_for_current_program(name, surname, lastname, program))
+                result.append(parser.get_position(name, surname, lastname, program))
             except BadRequest:
                 message = "Failure to connect to the Spbu university site was detecting in SpbuUniversity class."
                 logging.warning(message)
-                raise BadRequest("Не удалось подключиться к сайту университета РАНХИГС.")
+                raise BadRequest("Не удалось подключиться к сайту университета СПБГУ.")
 
-            return result
+        return result

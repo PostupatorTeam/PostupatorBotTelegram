@@ -1,9 +1,11 @@
+from abc import ABCMeta
 from typing import Tuple, List
-from interface import Interface
 from models.Program.interface.Program import Program
 
 
-class ConcreteUniversityStudent(Interface):
+class ConcreteUniversityStudent:
+    __metaclass__ = ABCMeta
+
     id: str
     name: str
     surname: str

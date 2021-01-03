@@ -1,10 +1,9 @@
 from dataclasses import dataclass
-from interface import implements
-from models.Program.interface import Program
+from models.Program.interface.Program import Program
 
 
 @dataclass
-class SpbuProgram(implements(Program)):
+class SpbuProgram(Program):
     educational_form: str
     pay_form: str
     program: str

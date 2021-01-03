@@ -1,10 +1,9 @@
 from dataclasses import dataclass
-from interface import implements
-from models.Program.interface import Program
+from models.Program.interface.Program import Program
 
 
 @dataclass
-class RanepaProgram(implements(Program)):
+class RanepaProgram(Program):
     departament: str
     approval: str
     form: str
