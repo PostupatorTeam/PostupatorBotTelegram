@@ -1,11 +1,7 @@
 from psycopg2._psycopg import InternalError
 from werkzeug.exceptions import NotFound, BadRequest
 from database_module import database_module
-from mapping_module.mapping_module import map_to_concrete_university_students, map_to_student
 from middle_module import middle_module
-from models.ConcreteUniversityStudent.implementations.EtuStudent import EtuStudent
-from models.ConcreteUniversityStudent.implementations.RanepaStudent import RanepaStudent
-from models.ConcreteUniversityStudent.implementations.SpbuStudent import SpbuStudent
 from models.Program.implementations.EtuProgram import EtuProgram
 from models.Program.implementations.RanepaProgram import RanepaProgram
 from models.Program.implementations.SpbuProgram import SpbuProgram
