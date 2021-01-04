@@ -6,7 +6,7 @@ from models.Program.implementations.SpbuProgram import SpbuProgram
 
 @dataclass
 class SpbuStudent(ConcreteUniversityStudent):
-    id: str
+    userid: str
     name: str
     surname: str
     lastname: str

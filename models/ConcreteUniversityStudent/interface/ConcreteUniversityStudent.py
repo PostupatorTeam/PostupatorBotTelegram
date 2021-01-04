@@ -6,7 +6,7 @@ from models.Program.interface.Program import Program
 class ConcreteUniversityStudent:
     __metaclass__ = ABCMeta
 
-    id: str
+    userid: str
     name: str
     surname: str
     lastname: str

@@ -16,11 +16,11 @@ def map_to_concrete_university_students(student: Student) -> List[ConcreteUniver
         programs = university.get_position(student.name, student.surname, student.lastname)
 
         if type(university) is SpbuUniversity:
-            result.append(SpbuStudent(student.id, student.name, student.surname, student.lastname, programs))
+            result.append(SpbuStudent(student.userid, student.name, student.surname, student.lastname, programs))
         elif type(university) is EtuUniversity:
-            result.append(EtuStudent(student.id, student.name, student.surname, student.lastname, programs))
+            result.append(EtuStudent(student.userid, student.name, student.surname, student.lastname, programs))
         elif type(university) is RanepaUniversity:
-            result.append(RanepaStudent(student.id, student.name, student.surname, student.lastname, programs))
+            result.append(RanepaStudent(student.userid, student.name, student.surname, student.lastname, programs))
 
     return result
 
@@ -36,7 +36,7 @@ def map_to_student(students: List[ConcreteUniversityStudent]) -> Student:
         if type(student) is SpbuStudent:
             universities.append(SpbuUniversity(programs))
         elif type(student) is EtuStudent:
-            universities.append(SpbuUniversity(programs))
+            universities.append(EtuUniversity(programs))
         elif type(student) is RanepaStudent:
             universities.append(RanepaUniversity(programs))
 

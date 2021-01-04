@@ -6,7 +6,7 @@ from models.Program.implementations.EtuProgram import EtuProgram
 
 @dataclass
 class EtuStudent(ConcreteUniversityStudent):
-    id: str
+    userid: str
     name: str
     surname: str
     lastname: str
