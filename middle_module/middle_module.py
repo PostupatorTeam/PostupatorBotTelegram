@@ -14,14 +14,17 @@ from models.Program.interface.Program import Program
 database_module = database_module
 
 
-def notifications() -> Dict[str, Dict[str, List[Tuple[Program, int]]]]:
+def send_notifications() -> Dict[str, Dict[str, List[Tuple[Program, int]]]]:
     concrete_students = database_module.get_all_with_notifications()
 
     unique_students = dict()
     students = list()
 
     for concrete_student in concrete_students:
-        unique_students[concrete_student.id].append(concrete_student)
+        if concrete_student.userid in unique_students.keys():
+            unique_students[concrete_student.userid].append(concrete_student)
+        else:
+            unique_students[concrete_student.userid] = [concrete_student]
 
     for unique_student_info in unique_students.values():
         students.append(map_to_student(unique_student_info))
@@ -30,16 +33,16 @@ def notifications() -> Dict[str, Dict[str, List[Tuple[Program, int]]]]:
 
     for student in students:
         cur = map_to_concrete_university_students(student)
-        current_info[student.id] = cur
+        current_info[student.userid] = cur
 
         if not database_module.update(cur):
-            logging.warning("Failure to update database was detected in middle_module/notifications.")
+            logging.warning("Failure to update database was detected in middle_module/send_notifications.")
 
     result = dict()
 
     for info in current_info.items():
-        info[1].sort()
-        unique_students[info[0]].sort()
+        info[1].sort(key=lambda item: item.userid)
+        unique_students[info[0]].sort(key=lambda item: item.userid)
 
         current_result = list()
 
@@ -47,7 +50,7 @@ def notifications() -> Dict[str, Dict[str, List[Tuple[Program, int]]]]:
             if info[1][i] != unique_students[info[0]][i]:
                 current_result.append(info[1][i])
 
-        result[info[1][0].id] = reformat_info(current_result)
+        result[info[1][0].userid] = reformat_info(current_result)
 
     return result
 

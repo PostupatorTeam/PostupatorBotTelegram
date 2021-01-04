@@ -6,7 +6,7 @@ from models.Program.implementations.RanepaProgram import RanepaProgram
 
 @dataclass
 class RanepaStudent(ConcreteUniversityStudent):
-    id: str
+    userid: str
     name: str
     surname: str
     lastname: str

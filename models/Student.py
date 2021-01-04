@@ -5,7 +5,7 @@ from models.University.interface.University import University
 
 @dataclass
 class Student:
-    id: str
+    userid: str
     name: str
     surname: str
     lastname: str

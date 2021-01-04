@@ -1,4 +1,4 @@
-from typing import Tuple, List
+from typing import Tuple, List, Dict
 from models.Program.interface.Program import Program
 
 
@@ -37,7 +37,7 @@ def remove_notifications():
     pass
 
 
-def notify(userid: str, positions: List[Tuple[Program, int]]):
+def notify(userid: str, positions: Dict[str, List[Tuple[Program, int]]]):
     # В чат с соответствующим id отправляем нужную инфу
     # Здесь же пишем логи
     pass
