@@ -11,3 +11,11 @@ def is_validate_university(student, university):
     if count >= 3:
         return False
     return True
+
+
+def is_validate_message(message):
+    kirill = 'абвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЖЗИЙКЛМНОПРСТНФЧЦЧШЩЪЫЬЭЮЯ- '
+    for i in message:
+        if not i in kirill:
+            return False
+    return True
