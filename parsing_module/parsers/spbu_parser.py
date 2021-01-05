@@ -33,14 +33,14 @@ def get_link_to_table(program: SpbuProgram) -> str:
             else:
                 break
         elif program_found:
-            if item.name == "b" and not item.has_attr("style"):
+            if item.universityName == "b" and not item.has_attr("style"):
                 if educational_form_compare(program.educational_form, item.string.strip()):
                     form_found = True
                     continue
             elif item.tag == "b":
                 break
         else:
-            if item.name == "b" and item.has_attr("style"):
+            if item.universityName == "b" and item.has_attr("style"):
                 if program_name_compare(program.program, item.string.strip()):
                     program_found = True
                     continue
