@@ -95,3 +95,7 @@ def get_all_with_notifications() -> List[ConcreteUniversityStudent]:
 
 def update(concrete_students: List[ConcreteUniversityStudent]) -> bool:
     return concrete_students[0].userid != "NotExistingId"
+
+
+def check_if_user_is_exists(userid: str) -> bool:
+    return userid == "existingUser"

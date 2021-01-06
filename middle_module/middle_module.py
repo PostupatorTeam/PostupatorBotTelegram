@@ -131,4 +131,4 @@ def notify():
 
 
 def check_if_user_is_exists(userid: str) -> bool:
-    return database_module.check_if_user_is_exists()
+    return database_module.check_if_user_is_exists(userid)
