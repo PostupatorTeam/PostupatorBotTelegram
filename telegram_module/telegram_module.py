@@ -1,7 +1,7 @@
 from typing import Tuple, List, Dict
 from models.Program.interface.Program import Program
 from middle_module import middle_module
-from telegram_module.student_data import Student
+from telegram_module.models.models_storage import Student
 from telegram_module import bot_handler
 
 
@@ -43,6 +43,6 @@ def remove_notifications(userid: str):
 
 
 def notify(userid: str, positions: Dict[str, List[Tuple[Program, int]]]):
-    bot_handler.notify(userid,positions)
+    bot_handler.notify(userid, positions)
     # В чат с соответствующим id отправляем нужную инфу
     # Здесь же пишем логи

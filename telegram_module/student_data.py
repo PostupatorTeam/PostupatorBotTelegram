@@ -1,33 +1,11 @@
 from telegram_module.validator import *
-from dataclasses import dataclass
-from telegram_module.program_data import Program
+from telegram_module.models.models_storage import Program, Student
 from telegram_module.program_data import add_program_info, get_first_message
-from enum import Enum
 from telegram_module.telegram_module import create_user
-from telegram_module.converter import convert_to_student_database,convert_to_message
+from telegram_module.converter import convert_to_student_database, convert_to_message
 from models.Program.interface import Program
 
 students = {}
-
-
-@dataclass
-class Student:
-    firstName: str
-    surname: str
-    patronymic: str
-    programs: list
-    isRegistered: bool
-    isAddProgram: bool
-
-
-class RegistrationData(Enum):
-    Empty = 0
-    FirstName = 1
-    Surname = 2
-    Patronymic = 3
-    UniversityName = 4
-    ProgramInfo = 5
-    End = 6
 
 
 def add_user(id):
@@ -95,20 +73,3 @@ def add_data_user(id, message, data_type):
     if data_type == RegistrationData.End:
         return end_registration(id)
         # return 'Вы успешно зарегестрировались'
-
-
-def get_registration_message(message):
-    id = message.chat.id
-    if not id in students:
-        return add_data_user(id, message.text, RegistrationData.Empty)
-    if students[id].firstName is None:
-        return add_data_user(id, message.text, RegistrationData.FirstName)
-    if students[id].surname is None:
-        return add_data_user(id, message.text, RegistrationData.Surname)
-    if students[id].patronymic is None:
-        return add_data_user(id, message.text, RegistrationData.Patronymic)
-    if not students[id].isAddProgram:
-        return add_data_user(id, message.text, RegistrationData.ProgramInfo)
-    if message.text == 'Завершить регистрацию':
-        return add_data_user(id, message.text, RegistrationData.End)
-    return add_data_user(id, message.text, RegistrationData.UniversityName)

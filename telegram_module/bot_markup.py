@@ -1,5 +1,5 @@
 from telebot import types
-from config.config import universities
+from config.config import universities_list
 
 
 def get_markup(user, message):
@@ -20,7 +20,7 @@ def create_markup(user):
 
 def get_universities_markup(user):
     result = []
-    for university in universities:
+    for university in universities_list:
         count = 0
         for user_university in user.programs:
             if university == user_university.universityName:

@@ -1,13 +1,13 @@
 import logging
 from config import config
 import psycopg2
+from middle_module import middle_module
 from telegram_module.bot_handler import start
 
 
-# logging.basicConfig(filename=config.logs_path, format='%(levelname)s - %(message)s')
-
 def main():
     start()
+
 
 def initialize_database():
     connection = psycopg2.connect(database="postgres", user='postgres', password='adhog', host='127.0.0.1', port='5432')
@@ -58,4 +58,8 @@ def initialize_database():
 
 
 if __name__ == '__main__':
+    logging.basicConfig(filename=config.logs_path, format='%(levelname)s - %(message)s')
+    initialize_database()
+    middle_module.notify()
     main()
+    logging.info("Program was started!")

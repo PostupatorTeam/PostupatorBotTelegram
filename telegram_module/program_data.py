@@ -1,16 +1,3 @@
-from dataclasses import dataclass
-
-
-@dataclass
-class Program:
-    paymentForm: str
-    studyForm: str
-    directionStudy: str
-    studyProgram: str
-    universityBranch: str
-    universityName: str
-
-
 def add_program_info(info, student):
     if student.programs[-1].universityName == 'ЛЭТИ':
         if student.programs[-1].studyProgram is None:

@@ -1,8 +1,8 @@
-from config.config import universities
+from config.config import universities_list
 
 
 def is_validate_university(student, university):
-    if not university in universities:
+    if not university in universities_list:
         return False
     count = 0
     for program in student.programs:

@@ -4,7 +4,7 @@ from config.config import token
 from telegram_module.bot_markup import get_markup
 from telegram_module.student_data import students, get_registration_message
 from telegram_module.validator import is_validate_message
-from middle_module.middle_module import check_if_user_exist
+from middle_module.middle_module import check_if_user_is_exists
 from telegram_module import telegram_module
 from telegram_module.converter import convert_to_message
 from models.Program.interface.Program import Program
@@ -29,7 +29,7 @@ def send_message(message):
     elif id in students and not students[id].isRegistered:
         bot_message = get_registration_message(message)
         bot.send_message(id, bot_message, reply_markup=get_markup(students[id], bot_message))
-    elif check_if_user_exist(str(id)):
+    elif check_if_user_is_exists(str(id)):
         bot.send_message(id, 'Вы зарегестрированы')
     else:
         bot.send_message(id, 'Вы не зарегистрированы', reply_markup=telebot.types.ReplyKeyboardRemove())

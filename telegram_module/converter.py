@@ -10,17 +10,18 @@ from models.University.implementations.RanepaUniversity import RanepaUniversity
 from typing import Dict, Tuple, List
 
 
-def convert_to_message(univers: Dict[str, List[Tuple[Program.Program, int]]]) -> str:
+def convert_to_message(universities: Dict[str, List[Tuple[Program, int]]]) -> str:
     message = ''
-    for key in univers:
+    for key in universities:
         message += '{0}:\n'.format(key)
-        for pair in univers[key]:
-            message += 'На {0} позиция {1}\n'.format(pair[0].program, pair[1])
+        for pair in universities[key]:
+            message += 'На {0} позиция {1}\n'.format(str(pair[0]), pair[1])
     return message
 
+
 def convert_to_student_database(student: student_data.Student, userid: str) -> Student:
-    student_database = Student(userid=userid, name=student.firstName, surname=student.surname
-                               , lastname=student.patronymic, universities=[])
+    student_database = Student(userid=userid, name=student.firstName, surname=student.surname,
+                               lastname=student.patronymic, universities=[])
 
     if is_exist_etu(student.programs):
         add_etu_university_to_student(student, student_database)
