@@ -1,3 +1,4 @@
+import logging
 from typing import List
 import psycopg2
 from psycopg2._psycopg import InternalError
@@ -212,7 +213,12 @@ def get_info(userid: str) -> List[ConcreteUniversityStudent]:
     connection.close()
 
     if len(result) == 0:
-        raise InternalError()
+        message = \
+            f"Failure to find student with this userid in database was detecting in database_module/get_info."
+        logging.warning(message)
+        message = \
+            f"Не удалось найти абитуриента с такими данными (Возможно, Вы еще не зарегистрированы)."
+        raise InternalError(message)
 
     return result
 
@@ -226,7 +232,12 @@ def add_notifications(userid: str) -> bool:
 
     if not cursor.fetchone():
         connection.close()
-        raise InternalError()
+        message = \
+            f"Failure to find student with this userid in database was detecting in database_module/add_notifications."
+        logging.warning(message)
+        message = \
+            f"Не удалось найти абитуриента с такими данными (Возможно, Вы еще не зарегистрированы)."
+        raise InternalError(message)
 
     cursor.execute(f"""EXIST(SELECT * FROM main_table WHERE userid='{userid}' and notifications=false)""")
     connection.commit()
@@ -248,7 +259,13 @@ def remove_notifications(userid: str) -> bool:
 
     if not cursor.fetchone():
         connection.close()
-        raise InternalError()
+        message = \
+            f"Failure to find student with this userid in database was detecting in " \
+            f"database_module/remove_notifications. "
+        logging.warning(message)
+        message = \
+            f"Не удалось найти абитуриента с такими данными (Возможно, Вы еще не зарегистрированы)."
+        raise InternalError(message)
 
     cursor.execute(f"""EXIST(SELECT * FROM main_table WHERE userid='{userid}' and notifications=true)""")
     connection.commit()

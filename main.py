@@ -12,7 +12,7 @@ def initialize_database():
 
     if not cursor.fetchone():
         cursor.execute('CREATE DATABASE python_db')
-        
+
     connection.commit()
     connection.close()
 
