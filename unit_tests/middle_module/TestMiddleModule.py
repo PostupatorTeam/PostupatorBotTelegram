@@ -146,6 +146,12 @@ class TestMiddleModule(unittest.TestCase):
     def test_remove_notifications_should_return_true_when_database_module_return_true(self):
         self.assertTrue(middle_module.remove_notifications("UserIdWithNotifications"))
 
+    def test_check_if_user_is_exists_should_return_true_when_database_module_return_true(self):
+        self.assertTrue(middle_module.check_if_user_is_exists("existingUser"))
+
+    def test_check_if_user_is_exists_should_return_false_when_database_module_return_false(self):
+        self.assertFalse(middle_module.check_if_user_is_exists("notExistingUser"))
+
     def tearDown(self):
         SpbuUniversity.parser = spbu_parser
         EtuUniversity.parser = etu_parser

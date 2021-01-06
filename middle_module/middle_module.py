@@ -128,3 +128,7 @@ def remove_notifications(userid: str) -> bool:
 
 def notify():
     threading.Thread(target=notifications_in_separate_thread, daemon=True).start()
+
+
+def check_if_user_is_exists(userid: str) -> bool:
+    return database_module.check_if_user_is_exists(userid)
