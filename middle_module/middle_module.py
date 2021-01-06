@@ -1,4 +1,6 @@
 import logging
+import threading
+import time
 from typing import Dict, Tuple, List
 from psycopg2 import InternalError
 from mapping_module.mapping_module import map_to_concrete_university_students, map_to_student
@@ -9,6 +11,7 @@ from models.ConcreteUniversityStudent.implementations.RanepaStudent import Ranep
 from models.ConcreteUniversityStudent.implementations.SpbuStudent import SpbuStudent
 from models.ConcreteUniversityStudent.interface.ConcreteUniversityStudent import ConcreteUniversityStudent
 from models.Program.interface.Program import Program
+from telegram_module import telegram_module
 
 
 database_module = database_module
@@ -53,6 +56,16 @@ def send_notifications() -> Dict[str, Dict[str, List[Tuple[Program, int]]]]:
         result[info[1][0].userid] = reformat_info(current_result)
 
     return result
+
+
+def notifications_in_separate_thread():
+    while True:
+        result = send_notifications()
+
+        for i in result.items():
+            telegram_module.notify(i[0], i[1])
+
+        time.sleep(3600)
 
 
 def reformat_info(concrete_students: List[ConcreteUniversityStudent]) -> Dict[str, List[Tuple[Program, int]]]:
@@ -114,6 +127,4 @@ def remove_notifications(userid: str) -> bool:
 
 
 def notify():
-    # Как-то по умному создаем отдельный поток и вызываем функцию notifications
-    # Также не забываем вызвать метод telegram
-    pass
+    threading.Thread(target=notifications_in_separate_thread, daemon=True).start()
