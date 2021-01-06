@@ -7,7 +7,12 @@ from config import config
 
 def initialize_database():
     connection = psycopg2.connect(database="postgres", user='postgres', password='adhog', host='127.0.0.1', port='5432')
-    connection.cursor().execute("""CREATE database postupatordb""")  # Здесь создаем базу данных если есть маза
+    cursor = connection.cursor()
+    cursor.execute("SELECT 1 FROM pg_catalog.pg_database WHERE datname = 'postupatordb'")
+
+    if not cursor.fetchone():
+        cursor.execute('CREATE DATABASE python_db')
+        
     connection.commit()
     connection.close()
 
