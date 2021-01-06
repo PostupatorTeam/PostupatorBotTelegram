@@ -363,3 +363,13 @@ def update(concrete_students: List[ConcreteUniversityStudent]) -> bool:
                 connection.commit()
 
     return result
+
+
+def check_if_user_is_exists(userid: str) -> bool:
+    connection = psycopg2.connect(database="postupatordb", user='postgres', password='adhog',
+                                  host='127.0.0.1', port='5432')
+    cursor = connection.cursor()
+    cursor.execute(f"""EXIST(SELECT userid FROM main_table WHERE userid='{userid}')""")
+    connection.commit()
+    connection.close()
+    return cursor.fetchone()
