@@ -3,11 +3,11 @@ from dataclasses import dataclass
 
 @dataclass
 class Program:
-    paymentForm: str  # платно/бесплатно
-    studyForm: str  # очно/заочно
-    directionStudy: str  # направление
-    studyProgram: str  # программа
-    universityBranch: str  # филиал
+    paymentForm: str
+    studyForm: str
+    directionStudy: str
+    studyProgram: str
+    universityBranch: str
     universityName: str
 
 
@@ -17,7 +17,7 @@ def add_program_info(info, student):
             student.programs[-1].studyProgram = info
             return 'Введите форму обучения'
         if student.programs[-1].paymentForm is None:
-            student.programs[-1].studyProgram = info
+            student.programs[-1].paymentForm = info
             return None
     if student.programs[-1].universityName == 'РАНХГИС':
         if student.programs[-1].universityBranch is None:
@@ -32,7 +32,7 @@ def add_program_info(info, student):
         if student.programs[-1].studyProgram is None:
             student.programs[-1].studyProgram = info
             return None
-    if student.programs[-1].universityName == 'СГУ':
+    if student.programs[-1].universityName == 'СПБГУ':
         if student.programs[-1].directionStudy is None:
             student.programs[-1].directionStudy = info
             return 'Введите форму обучения'
@@ -40,7 +40,7 @@ def add_program_info(info, student):
             student.programs[-1].studyForm = info
             return 'Введите форму оплаты'
         if student.programs[-1].paymentForm is None:
-            student.programs[-1].studyProgram = info
+            student.programs[-1].paymentForm = info
             return None
 
 
@@ -49,5 +49,5 @@ def get_first_message(university):
         return 'Введите программу обучения'
     if university == 'РАНХГИС':
         return 'Введите филиал вуза'
-    if university == 'СГУ':
+    if university == 'СПБГУ':
         return 'Введите направление обучения'

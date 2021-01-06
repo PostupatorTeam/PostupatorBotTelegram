@@ -1,8 +1,11 @@
 from telegram_module.validator import *
 from dataclasses import dataclass
-from telegram_module.program import Program
-from telegram_module.program import add_program_info, get_first_message
+from telegram_module.program_data import Program
+from telegram_module.program_data import add_program_info, get_first_message
 from enum import Enum
+from telegram_module.telegram_module import create_user
+from telegram_module.converter import convert_to_student_database,convert_to_message
+from models.Program.interface import Program
 
 students = {}
 
@@ -29,33 +32,37 @@ class RegistrationData(Enum):
 
 def add_user(id):
     students[id] = Student(firstName=None, surname=None, patronymic=None, programs=[], isRegistered=False,
-                           isAddProgram=True)
+                      isAddProgram=True)
 
 
-def add_firstName_user(id, name):
-    students[id].firstName = name
+def add_firstName_user(student, name):
+    student.firstName = name
 
 
-def add_surname_user(id, name):
-    students[id].surname = name
+def add_surname_user(student, name):
+    student.surname = name
 
 
-def add_patronymic_user(id, name):
-    students[id].patronymic = name
+def add_patronymic_user(student, name):
+    student.patronymic = name
 
 
-def add_points_user(id, points):
-    students[id].points = points
+def add_points_user(student, points):
+    student.points = points
 
 
-def add_program_user(id, university):
-    students[id].programs.append(
+def add_program_user(student, university):
+    student.programs.append(
         Program(paymentForm=None, studyForm=None, directionStudy=None, studyProgram=None,
-                universityBranch=None,universityName=university))
+                universityBranch=None, universityName=university))
 
 
-def end_registration(id):
+def end_registration(id) -> str:
     students[id].isRegistered = True
+    student = convert_to_student_database(students[id], id)
+    del students[id]
+    univers_data = create_user(student)
+    return convert_to_message(univers_data)
 
 
 def add_data_user(id, message, data_type):
@@ -86,8 +93,8 @@ def add_data_user(id, message, data_type):
         else:
             return response
     if data_type == RegistrationData.End:
-        end_registration(id)
-        return 'Вы успешно зарегестрировались'
+        return end_registration(id)
+        # return 'Вы успешно зарегестрировались'
 
 
 def get_registration_message(message):

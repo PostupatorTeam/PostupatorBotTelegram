@@ -14,8 +14,8 @@ def is_validate_university(student, university):
 
 
 def is_validate_message(message):
-    kirill = 'абвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЖЗИЙКЛМНОПРСТНФЧЦЧШЩЪЫЬЭЮЯ- '
+    allowed_characters = 'абвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ- '
     for i in message:
-        if not i in kirill:
+        if not i in allowed_characters:
             return False
     return True

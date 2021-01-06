@@ -10,7 +10,6 @@ from models.ConcreteUniversityStudent.implementations.SpbuStudent import SpbuStu
 from models.ConcreteUniversityStudent.interface.ConcreteUniversityStudent import ConcreteUniversityStudent
 from models.Program.interface.Program import Program
 
-
 database_module = database_module
 
 
@@ -117,3 +116,7 @@ def notify():
     # Как-то по умному создаем отдельный поток и вызываем функцию notifications
     # Также не забываем вызвать метод telegram
     pass
+
+
+def check_if_user_exist(userid: str) -> bool:
+    return True
