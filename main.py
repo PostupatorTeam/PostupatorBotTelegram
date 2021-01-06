@@ -54,6 +54,7 @@ def initialize_database():
                                     program TEXT,
                                     place INTEGER)""")
     connection.commit()
+    connection.close()
 
 
 if __name__ == '__main__':
