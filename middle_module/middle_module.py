@@ -63,7 +63,7 @@ def notifications_in_separate_thread():
         result = send_notifications()
 
         for i in result.items():
-            telegram_module.notify(i[0], i[1])
+            telegram_module.notify_handler(i[0], i[1])
 
         time.sleep(3600)
 

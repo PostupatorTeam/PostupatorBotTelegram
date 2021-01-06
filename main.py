@@ -2,7 +2,7 @@ import logging
 from config import config
 import psycopg2
 from middle_module import middle_module
-from telegram_module.bot_handler import start
+from telegram_module.telegram_module import start
 
 
 def main():
