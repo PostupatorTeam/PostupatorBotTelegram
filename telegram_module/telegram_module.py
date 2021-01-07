@@ -299,17 +299,17 @@ def add_data_user(id, message, data_type):
         add_user(id)
         return 'Введите имя'
     if data_type == RegistrationData.FirstName:
-        add_firstName_user(id, message)
+        add_firstName_user(students[id], message)
         return 'Введите фамилию'
     if data_type == RegistrationData.Surname:
-        add_surname_user(id, message)
+        add_surname_user(students[id], message)
         return 'Введите отчество'
     if data_type == RegistrationData.Patronymic:
-        add_patronymic_user(id, message)
+        add_patronymic_user(students[id], message)
         return 'Укажите университет'
     if data_type == RegistrationData.UniversityName:
         if is_validate_university(students[id], message):
-            add_program_user(id, message)
+            add_program_user(students[id], message)
             students[id].isAddProgram = False
             return get_first_message(message)
         else:
