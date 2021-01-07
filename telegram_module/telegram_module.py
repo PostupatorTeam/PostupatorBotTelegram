@@ -98,7 +98,7 @@ def get_info(message):
 
 
 @bot.message_handler(commands=['editUser'])
-def edit_user(message):
+def edit_user_handler(message):
     bot.send_message(message.chat.id, get_registration_message(message))
 
 
@@ -298,11 +298,7 @@ def end_registration(id) -> str:
     students[id].isRegistered = True
     student = convert_to_student_database(students[id], id)
     del students[id]
-    univers_data = None
-    if not check_if_user_is_exists(id):
-        univers_data = create_user(student)
-    else:
-        univers_data = edit_user(student)
+    univers_data = edit_user(student) if check_if_user_is_exists(id) else create_user(student)
     return convert_to_message(univers_data)
 
 
