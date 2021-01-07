@@ -83,7 +83,10 @@ def send_message(message):
         bot.send_message(id, 'Вы отправили не корректное сообщение')
     elif id in students and not students[id].isRegistered:
         bot_message = get_registration_message(message)
-        bot.send_message(id, bot_message, reply_markup=get_markup(students[id], bot_message))
+        markup = None
+        if id in students:
+            markup = get_markup(students[id],bot_message)
+        bot.send_message(id, bot_message, reply_markup=markup)
     elif check_if_user_is_exists(str(id)):
         bot.send_message(id, 'Вы зарегестрированы')
     else:
