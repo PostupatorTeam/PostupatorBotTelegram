@@ -15,7 +15,7 @@ from models.Student import Student
 from models.University.implementations.EtuUniversity import EtuUniversity
 from models.University.implementations.RanepaUniversity import RanepaUniversity
 from models.University.implementations.SpbuUniversity import SpbuUniversity
-from telegram_module.models.models_storage import Student, RegistrationData
+from telegram_module.models.models_storage import RegistrationData
 
 # from telegram_module import bot_handler, student_data
 
@@ -157,7 +157,7 @@ def convert_to_message(universities: Dict[str, List[Tuple[Program, int]]]) -> st
     return message
 
 
-def convert_to_student_database(student: Student, userid: str) -> Student:
+def convert_to_student_database(student: models_storage.Student, userid: str) -> Student:
     student_database = Student(userid=userid, name=student.firstName, surname=student.surname,
                                lastname=student.patronymic, universities=[])
 
@@ -173,7 +173,7 @@ def convert_to_student_database(student: Student, userid: str) -> Student:
     return student_database
 
 
-def add_etu_university_to_student(student: Student, student_db: Student):
+def add_etu_university_to_student(student: models_storage.Student, student_db: Student):
     student_db.universities.append(EtuUniversity(programs=[]))
     for program in student.programs:
         if program.universityName == 'ЛЭТИ':
@@ -181,7 +181,7 @@ def add_etu_university_to_student(student: Student, student_db: Student):
                                                                    , program=program.studyProgram))
 
 
-def add_spbu_university_to_student(student: Student, student_db: Student):
+def add_spbu_university_to_student(student: models_storage.Student, student_db: Student):
     student_db.universities.append(SpbuUniversity(programs=[]))
     for program in student.programs:
         if program.universityName == 'СПБГУ':
@@ -190,7 +190,7 @@ def add_spbu_university_to_student(student: Student, student_db: Student):
                                                                     , program=program.studyForm))
 
 
-def add_ranepa_university_to_student(student: Student, student_db: Student):
+def add_ranepa_university_to_student(student: models_storage.Student, student_db: Student):
     student_db.universities.append(RanepaUniversity(programs=[]))
     for program in student.programs:
         if program.universityName == 'СПБГУ':
@@ -264,7 +264,7 @@ def get_first_message(university):
 
 
 def add_user(id):
-    students[id] = Student(firstName=None, surname=None, patronymic=None, programs=[], isRegistered=False,
+    students[id] = models_storage.Student(firstName=None, surname=None, patronymic=None, programs=[], isRegistered=False,
                            isAddProgram=True)
 
 
