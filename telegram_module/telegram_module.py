@@ -14,11 +14,13 @@ from models.University.implementations.EtuUniversity import EtuUniversity
 from models.University.implementations.RanepaUniversity import RanepaUniversity
 from models.University.implementations.SpbuUniversity import SpbuUniversity
 from telegram_module.models.models_storage import Student, RegistrationData
+
 # from telegram_module import bot_handler, student_data
 
 students = {}
 
 bot = telebot.TeleBot(token)
+
 
 def create_user(studentData: Student) -> Dict[str, List[Tuple[Program, int]]]:
     return middle_module.create_user(studentData)
@@ -58,10 +60,9 @@ def remove_notifications(userid: str):
 
 
 def notify(userid: str, positions: Dict[str, List[Tuple[Program, int]]]):
-    bot_handler.notify_handler(userid, positions)
+    notify_handler(userid, positions)
     # В чат с соответствующим id отправляем нужную инфу
     # Здесь же пишем логи
-
 
 
 def start():
@@ -119,14 +120,14 @@ def notify_handler(userid: str, positions: Dict[str, List[Tuple[Program, int]]])
 
 def get_markup(user, message):
     if user.patronymic is None or message == 'Вы успешно зарегестрировались' or not user.isAddProgram:
-        return types.ReplyKeyboardRemove()
+        return telebot.types.ReplyKeyboardRemove()
     markup = create_markup(user)
     return markup
 
 
 def create_markup(user):
     universities = get_universities_markup(user)
-    markup = types.ReplyKeyboardMarkup(one_time_keyboard=True, resize_keyboard=True)
+    markup = telebot.types.ReplyKeyboardMarkup(one_time_keyboard=True, resize_keyboard=True)
     for university in universities:
         markup.add(university)
     markup.add('Завершить регистрацию')
@@ -143,6 +144,7 @@ def get_universities_markup(user):
         if count < 3:
             result.append(university)
     return result
+
 
 def convert_to_message(universities: Dict[str, List[Tuple[Program, int]]]) -> str:
     message = ''
@@ -216,6 +218,7 @@ def is_exist_ranepa(programs: list) -> bool:
             return True
     return False
 
+
 def add_program_info(info, student):
     if student.programs[-1].universityName == 'ЛЭТИ':
         if student.programs[-1].studyProgram is None:
@@ -258,10 +261,9 @@ def get_first_message(university):
         return 'Введите направление обучения'
 
 
-
 def add_user(id):
     students[id] = Student(firstName=None, surname=None, patronymic=None, programs=[], isRegistered=False,
-                      isAddProgram=True)
+                           isAddProgram=True)
 
 
 def add_firstName_user(student, name):
@@ -325,6 +327,7 @@ def add_data_user(id, message, data_type):
         return end_registration(id)
         # return 'Вы успешно зарегестрировались'
 
+
 def is_validate_university(student, university):
     if not university in universities_list:
         return False
@@ -343,6 +346,7 @@ def is_validate_message(message):
         if not i in allowed_characters:
             return False
     return True
+
 
 def get_registration_message(message):
     id = message.chat.id
