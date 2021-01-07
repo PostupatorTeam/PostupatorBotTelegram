@@ -47,7 +47,7 @@ def get_position(name: str, surname: str, lastname: str, program: RanepaProgram)
         fio = tds[1].find_all("a")[0].string.strip()
 
         if fio == f"{surname} {name} {lastname}":
-            return program, place
+            return program, int(place)
 
     message = \
         f"Failure to find student with this name on the Ranepa university site was detecting in RanepaUniversity class."

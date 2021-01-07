@@ -26,10 +26,10 @@ def map_to_concrete_university_students(student: Student) -> List[ConcreteUniver
 
 
 def map_to_student(students: List[ConcreteUniversityStudent]) -> Student:
-    programs = list()
     universities = list()
 
     for student in students:
+        programs = list()
         for program in student.programs:
             programs.append(program[0])
 
@@ -39,7 +39,5 @@ def map_to_student(students: List[ConcreteUniversityStudent]) -> Student:
             universities.append(EtuUniversity(programs))
         elif type(student) is RanepaStudent:
             universities.append(RanepaUniversity(programs))
-
-        programs = list()
 
     return Student(students[0].userid, students[0].name, students[0].surname, students[0].lastname, universities)
