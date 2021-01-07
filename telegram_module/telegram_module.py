@@ -11,6 +11,7 @@ from models.Program.implementations.SpbuProgram import SpbuProgram
 from models.Program.interface.Program import Program
 from telegram_module.models import models_storage
 from middle_module import middle_module
+from models.Student import Student
 from models.University.implementations.EtuUniversity import EtuUniversity
 from models.University.implementations.RanepaUniversity import RanepaUniversity
 from models.University.implementations.SpbuUniversity import SpbuUniversity
@@ -286,7 +287,7 @@ def add_points_user(student, points):
 def add_program_user(student, university):
     student.programs.append(
         models_storage.Program(paymentForm=None, studyForm=None, directionStudy=None, studyProgram=None,
-                universityBranch=None, universityName=university))
+                               universityBranch=None, universityName=university))
 
 
 def end_registration(id) -> str:
