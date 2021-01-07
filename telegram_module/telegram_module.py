@@ -186,8 +186,8 @@ def add_spbu_university_to_student(student: models_storage.Student, student_db: 
     for program in student.programs:
         if program.universityName == 'СПБГУ':
             student_db.universities[-1].programs.append(SpbuProgram(pay_form=program.paymentForm
-                                                                    , educational_form=program.directionStudy
-                                                                    , program=program.studyForm))
+                                                                    , educational_form=program.studyForm
+                                                                    , program=program.directionStudy))
 
 
 def add_ranepa_university_to_student(student: models_storage.Student, student_db: Student):
