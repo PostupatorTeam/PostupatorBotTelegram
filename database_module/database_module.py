@@ -1,8 +1,9 @@
 import logging
 from typing import List
-import psycopg2
 from psycopg2._psycopg import InternalError
-from database_module.sql_scripts.sql_scripts import insert_main_table, insert_spbu_table, insert_ranepa_table, \
+
+from database_module.database.get_connection import get_connection
+from database_module.database.sql_scripts import insert_main_table, insert_spbu_table, insert_ranepa_table, \
     insert_etu_table, get_info_by_id, get_universities, delete_by_id, get_info_by_id_and_notifications, \
     set_notifications, get_all_users_with_notifications, get_user_from_ranepa_table, \
     get_user_from_spbu_table, get_user_from_etu_table, set_place_in_ranepa_table, set_place_in_spbu_table, \
@@ -17,8 +18,7 @@ from models.Program.implementations.SpbuProgram import SpbuProgram
 
 
 def create(concrete_students: List[ConcreteUniversityStudent]):
-    connection = psycopg2.connect(database="postupatordb", user='postgres', password='adhog',
-                                  host='127.0.0.1', port='5432')
+    connection = get_connection()
     cursor = connection.cursor()
 
     for student in concrete_students:
@@ -59,8 +59,7 @@ def create_user(concrete_students: List[ConcreteUniversityStudent]) -> bool:
 
 
 def edit_user(concrete_students: List[ConcreteUniversityStudent]) -> bool:
-    connection = psycopg2.connect(database="postupatordb", user='postgres', password='adhog',
-                                  host='127.0.0.1', port='5432')
+    connection = get_connection()
     cursor = connection.cursor()
 
     cursor.execute(get_universities(concrete_students[0].userid))
@@ -85,14 +84,17 @@ def edit_user(concrete_students: List[ConcreteUniversityStudent]) -> bool:
 
         connection.commit()
 
+    connection.close()
+
     create(concrete_students)
+
     return True
 
 
 def get_info(userid: str) -> List[ConcreteUniversityStudent]:
-    connection = psycopg2.connect(database="postupatordb", user='postgres', password='adhog',
-                                  host='127.0.0.1', port='5432')
+    connection = get_connection()
     cursor = connection.cursor()
+
     cursor.execute(get_info_by_id("main_table", userid))
     connection.commit()
 
@@ -149,8 +151,7 @@ def add_notifications(userid: str) -> bool:
             f"Не удалось найти абитуриента с такими данными (Возможно, Вы еще не зарегистрированы)."
         raise InternalError(message)
 
-    connection = psycopg2.connect(database="postupatordb", user='postgres', password='adhog',
-                                  host='127.0.0.1', port='5432')
+    connection = get_connection()
     cursor = connection.cursor()
 
     cursor.execute(get_info_by_id_and_notifications(userid, "false"))
@@ -174,8 +175,7 @@ def remove_notifications(userid: str) -> bool:
             f"Не удалось найти абитуриента с такими данными (Возможно, Вы еще не зарегистрированы)."
         raise InternalError(message)
 
-    connection = psycopg2.connect(database="postupatordb", user='postgres', password='adhog',
-                                  host='127.0.0.1', port='5432')
+    connection = get_connection()
     cursor = connection.cursor()
 
     cursor.execute(get_info_by_id_and_notifications(userid, "true"))
@@ -190,9 +190,9 @@ def remove_notifications(userid: str) -> bool:
 
 
 def get_all_with_notifications() -> List[ConcreteUniversityStudent]:
-    connection = psycopg2.connect(database="postupatordb", user='postgres', password='adhog',
-                                  host='127.0.0.1', port='5432')
+    connection = get_connection()
     cursor = connection.cursor()
+
     cursor.execute(get_all_users_with_notifications())
     connection.commit()
 
@@ -228,18 +228,19 @@ def get_all_with_notifications() -> List[ConcreteUniversityStudent]:
             result.append(EtuStudent(student_data[0], student_data[1], student_data[2], student_data[3], programs))
 
     connection.close()
+
     return result
 
 
 def update(concrete_students: List[ConcreteUniversityStudent]) -> bool:
+    connection = get_connection()
+    cursor = connection.cursor()
+
     result = True
 
     for student in concrete_students:
         if type(student) is RanepaStudent:
             for program in student.programs:
-                connection = psycopg2.connect(database="postupatordb", user='postgres', password='adhog',
-                                              host='127.0.0.1', port='5432')
-                cursor = connection.cursor()
                 cursor.execute(get_user_from_ranepa_table(student.userid, program[0].departament, program[0].approval,
                                                           program[0].form, program[0].program))
                 connection.commit()
@@ -252,28 +253,22 @@ def update(concrete_students: List[ConcreteUniversityStudent]) -> bool:
                 connection.commit()
         elif type(student) is SpbuStudent:
             for program in student.programs:
-                connection = psycopg2.connect(database="postupatordb", user='postgres', password='adhog',
-                                              host='127.0.0.1', port='5432')
-                cursor = connection.cursor()
                 cursor.execute(get_user_from_spbu_table(student.userid, program[0].educational_form,
                                                         program[0].pay_form, program[0].program))
                 connection.commit()
 
-                if not cursor.fetchone():
+                if len(cursor.fetchall()) == 0:
                     result = False
 
                 cursor.execute(set_place_in_spbu_table(student.userid, program[0].educational_form, program[0].pay_form,
                                                        program[0].program, program[1]))
                 connection.commit()
-        else:
+        elif type(student) is EtuStudent:
             for program in student.programs:
-                connection = psycopg2.connect(database="postupatordb", user='postgres', password='adhog',
-                                              host='127.0.0.1', port='5432')
-                cursor = connection.cursor()
                 cursor.execute(get_user_from_etu_table(student.userid, program[0].form, program[0].program))
                 connection.commit()
 
-                if not cursor.fetchone():
+                if len(cursor.fetchall()) == 0:
                     result = False
 
                 cursor.execute(set_place_in_etu_table(student.userid, program[0].form, program[0].program, program[1]))
@@ -283,8 +278,7 @@ def update(concrete_students: List[ConcreteUniversityStudent]) -> bool:
 
 
 def check_if_user_is_exists(userid: str) -> bool:
-    connection = psycopg2.connect(database="postupatordb", user='postgres', password='adhog',
-                                  host='127.0.0.1', port='5432')
+    connection = get_connection()
     cursor = connection.cursor()
 
     cursor.execute(get_info_by_id("main_table", userid))
