@@ -1,7 +1,5 @@
 import logging
-
 from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
-
 from config import config
 import psycopg2
 from middle_module import middle_module

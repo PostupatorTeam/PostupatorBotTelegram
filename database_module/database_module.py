@@ -15,9 +15,9 @@ def create_user(concrete_students: List[ConcreteUniversityStudent]) -> bool:
     connection = psycopg2.connect(database="postupatordb", user='postgres', password='adhog',
                                   host='127.0.0.1', port='5432')
     cursor = connection.cursor()
-    cursor.execute(f"""EXISTS(SELECT userid FROM main_table WHERE userid='{concrete_students[0].userid}')""")
+    cursor.execute(f"""SELECT userid FROM main_table WHERE userid='{concrete_students[0].userid}'""")
     connection.commit()
-    if cursor.fetchone():
+    if len(cursor.fetchall()) != 0:
         connection.close()
         return False
 
@@ -227,10 +227,10 @@ def add_notifications(userid: str) -> bool:
     connection = psycopg2.connect(database="postupatordb", user='postgres', password='adhog',
                                   host='127.0.0.1', port='5432')
     cursor = connection.cursor()
-    cursor.execute(f"""EXIST(SELECT * FROM main_table WHERE userid='{userid}')""")
+    cursor.execute(f"""SELECT * FROM main_table WHERE userid='{userid}'""")
     connection.commit()
 
-    if not cursor.fetchone():
+    if len(cursor.fetchall()) == 0:
         connection.close()
         message = \
             f"Failure to find student with this userid in database was detecting in database_module/add_notifications."
@@ -239,9 +239,9 @@ def add_notifications(userid: str) -> bool:
             f"Не удалось найти абитуриента с такими данными (Возможно, Вы еще не зарегистрированы)."
         raise InternalError(message)
 
-    cursor.execute(f"""EXISTS(SELECT * FROM main_table WHERE userid='{userid}' and notifications=false)""")
+    cursor.execute(f"""SELECT * FROM main_table WHERE userid='{userid}' and notifications=false""")
     connection.commit()
-    result = cursor.fetchone()
+    result = len(cursor.fetchall()) != 0
 
     cursor.execute(f"""UPDATE main_table SET notifications = true WHERE userid='{userid}'""")
     connection.commit()
@@ -254,10 +254,10 @@ def remove_notifications(userid: str) -> bool:
     connection = psycopg2.connect(database="postupatordb", user='postgres', password='adhog',
                                   host='127.0.0.1', port='5432')
     cursor = connection.cursor()
-    cursor.execute(f"""EXISTS(SELECT * FROM main_table WHERE userid='{userid}')""")
+    cursor.execute(f"""SELECT * FROM main_table WHERE userid='{userid}'""")
     connection.commit()
 
-    if not cursor.fetchone():
+    if len(cursor.fetchall()) == 0:
         connection.close()
         message = \
             f"Failure to find student with this userid in database was detecting in " \
@@ -267,9 +267,9 @@ def remove_notifications(userid: str) -> bool:
             f"Не удалось найти абитуриента с такими данными (Возможно, Вы еще не зарегистрированы)."
         raise InternalError(message)
 
-    cursor.execute(f"""EXISTS(SELECT * FROM main_table WHERE userid='{userid}' and notifications=true)""")
+    cursor.execute(f"""SELECT * FROM main_table WHERE userid='{userid}' and notifications=true""")
     connection.commit()
-    result = cursor.fetchone()
+    result = len(cursor.fetchall()) != 0
 
     cursor.execute(f"""UPDATE main_table SET notifications = false WHERE userid='{userid}'""")
     connection.commit()
@@ -388,6 +388,6 @@ def check_if_user_is_exists(userid: str) -> bool:
     cursor = connection.cursor()
     cursor.execute(f"""SELECT userid FROM main_table WHERE userid='{userid}'""")
     connection.commit()
-    result = cursor.fetchone()
+    result = cursor.fetchall()
     connection.close()
-    return result
+    return len(result) != 0

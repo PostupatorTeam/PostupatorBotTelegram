@@ -76,23 +76,6 @@ def send_register(message):
     bot.send_message(message.chat.id, get_registration_message(message))
 
 
-@bot.message_handler(content_types=['text'])
-def send_message(message):
-    id = message.chat.id
-    if not is_validate_message(message.text):
-        bot.send_message(id, 'Вы отправили не корректное сообщение')
-    elif id in students and not students[id].isRegistered:
-        bot_message = get_registration_message(message)
-        markup = None
-        if id in students:
-            markup = get_markup(students[id],bot_message)
-        bot.send_message(id, bot_message, reply_markup=markup)
-    elif check_if_user_is_exists(str(id)):
-        bot.send_message(id, 'Вы зарегестрированы')
-    else:
-        bot.send_message(id, 'Вы не зарегистрированы', reply_markup=telebot.types.ReplyKeyboardRemove())
-
-
 @bot.message_handler(commands=['addNotifications'])
 def add_notifications(message):
     id = message.chat.id
@@ -116,6 +99,23 @@ def get_info(message):
 @bot.message_handler(commands=['editUser'])
 def edit_user(message):
     bot.send_message(message.chat.id, get_registration_message(message))
+
+
+@bot.message_handler(content_types=['text'])
+def send_message(message):
+    id = message.chat.id
+    if not is_validate_message(message.text):
+        bot.send_message(id, 'Вы отправили не корректное сообщение')
+    elif id in students and not students[id].isRegistered:
+        bot_message = get_registration_message(message)
+        markup = None
+        if id in students:
+            markup = get_markup(students[id],bot_message)
+        bot.send_message(id, bot_message, reply_markup=markup)
+    elif check_if_user_is_exists(str(id)):
+        bot.send_message(id, 'Вы зарегестрированы')
+    else:
+        bot.send_message(id, 'Вы не зарегистрированы', reply_markup=telebot.types.ReplyKeyboardRemove())
 
 
 def notify_handler(userid: str, positions: Dict[str, List[Tuple[Program, int]]]):
