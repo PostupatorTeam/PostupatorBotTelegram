@@ -32,7 +32,8 @@ def create_user(studentData: Student) -> Dict[str, List[Tuple[Program, int]]]:
     # Здесь же пишем логи
 
 
-def edit_user():
+def edit_user(studentData: Student) -> Dict[str, List[Tuple[Program, int]]]:
+    return middle_module.edit_user(studentData)
     # С помощью опроса получаем информацию и создаем класс Student
     # Обрабатывая исключения, отправляем запрос на middle модуль
     # Ответ просто распарсиваем и выводим инфу пользователю
@@ -297,7 +298,11 @@ def end_registration(id) -> str:
     students[id].isRegistered = True
     student = convert_to_student_database(students[id], id)
     del students[id]
-    univers_data = create_user(student)
+    univers_data = None
+    if not check_if_user_is_exists(id):
+        univers_data = create_user(student)
+    else:
+        univers_data = edit_user(student)
     return convert_to_message(univers_data)
 
 
