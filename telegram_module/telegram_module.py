@@ -9,6 +9,7 @@ from models.Program.implementations.EtuProgram import EtuProgram
 from models.Program.implementations.RanepaProgram import RanepaProgram
 from models.Program.implementations.SpbuProgram import SpbuProgram
 from models.Program.interface.Program import Program
+from telegram_module.models import models_storage
 from middle_module import middle_module
 from models.University.implementations.EtuUniversity import EtuUniversity
 from models.University.implementations.RanepaUniversity import RanepaUniversity
@@ -284,7 +285,7 @@ def add_points_user(student, points):
 
 def add_program_user(student, university):
     student.programs.append(
-        Program(paymentForm=None, studyForm=None, directionStudy=None, studyProgram=None,
+        models_storage.Program(paymentForm=None, studyForm=None, directionStudy=None, studyProgram=None,
                 universityBranch=None, universityName=university))
 
 
