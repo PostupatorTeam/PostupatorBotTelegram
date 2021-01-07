@@ -1,7 +1,6 @@
 pip==20.0.2
 pyTelegramBotAPI==3.7.3
 Werkzeug==1.0.1
-mapping_module
 psycopg2~=2.8.6
 bs4~=0.0.1
 beautifulsoup4~=4.9.3
