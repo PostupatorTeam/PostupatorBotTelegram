@@ -15,7 +15,7 @@ def create_user(concrete_students: List[ConcreteUniversityStudent]) -> bool:
     connection = psycopg2.connect(database="postupatordb", user='postgres', password='adhog',
                                   host='127.0.0.1', port='5432')
     cursor = connection.cursor()
-    cursor.execute(f"""EXIST(SELECT userid FROM main_table WHERE userid='{concrete_students[0].userid}')""")
+    cursor.execute(f"""EXISTS(SELECT userid FROM main_table WHERE userid='{concrete_students[0].userid}')""")
     connection.commit()
     if cursor.fetchone():
         connection.close()
@@ -100,13 +100,13 @@ def edit_user(concrete_students: List[ConcreteUniversityStudent]) -> bool:
 
     for university in universities:
         if university == "РАНХИГС":
-            cursor.execute(f"""DELETE FROM ranepa_table WHERE userid=='{concrete_students[0].userid}'""")
+            cursor.execute(f"""DELETE FROM ranepa_table WHERE userid='{concrete_students[0].userid}'""")
             connection.commit()
         elif university == "СПБГУ":
-            cursor.execute(f"""DELETE FROM spbu_table WHERE userid=='{concrete_students[0].userid}'""")
+            cursor.execute(f"""DELETE FROM spbu_table WHERE userid='{concrete_students[0].userid}'""")
             connection.commit()
         else:
-            cursor.execute(f"""DELETE FROM etu_table WHERE userid=='{concrete_students[0].userid}'""")
+            cursor.execute(f"""DELETE FROM etu_table WHERE userid='{concrete_students[0].userid}'""")
             connection.commit()
 
     for student in concrete_students:
@@ -239,7 +239,7 @@ def add_notifications(userid: str) -> bool:
             f"Не удалось найти абитуриента с такими данными (Возможно, Вы еще не зарегистрированы)."
         raise InternalError(message)
 
-    cursor.execute(f"""EXIST(SELECT * FROM main_table WHERE userid='{userid}' and notifications=false)""")
+    cursor.execute(f"""EXISTS(SELECT * FROM main_table WHERE userid='{userid}' and notifications=false)""")
     connection.commit()
     result = cursor.fetchone()
 
@@ -254,7 +254,7 @@ def remove_notifications(userid: str) -> bool:
     connection = psycopg2.connect(database="postupatordb", user='postgres', password='adhog',
                                   host='127.0.0.1', port='5432')
     cursor = connection.cursor()
-    cursor.execute(f"""EXIST(SELECT * FROM main_table WHERE userid='{userid}')""")
+    cursor.execute(f"""EXISTS(SELECT * FROM main_table WHERE userid='{userid}')""")
     connection.commit()
 
     if not cursor.fetchone():
@@ -267,7 +267,7 @@ def remove_notifications(userid: str) -> bool:
             f"Не удалось найти абитуриента с такими данными (Возможно, Вы еще не зарегистрированы)."
         raise InternalError(message)
 
-    cursor.execute(f"""EXIST(SELECT * FROM main_table WHERE userid='{userid}' and notifications=true)""")
+    cursor.execute(f"""EXISTS(SELECT * FROM main_table WHERE userid='{userid}' and notifications=true)""")
     connection.commit()
     result = cursor.fetchone()
 
@@ -330,7 +330,7 @@ def update(concrete_students: List[ConcreteUniversityStudent]) -> bool:
                 connection = psycopg2.connect(database="postupatordb", user='postgres', password='adhog',
                                               host='127.0.0.1', port='5432')
                 cursor = connection.cursor()
-                cursor.execute(f"""EXIST(SELECT * FROM ranepa_table WHERE 
+                cursor.execute(f"""EXISTS(SELECT * FROM ranepa_table WHERE 
                                 userid='{student.userid}' and departament='{program[0].departament}' and 
                                 approval='{program[0].approval}' and form='{program[0].form}' and 
                                 program='{program[0].program}')""")
@@ -349,7 +349,7 @@ def update(concrete_students: List[ConcreteUniversityStudent]) -> bool:
                 connection = psycopg2.connect(database="postupatordb", user='postgres', password='adhog',
                                               host='127.0.0.1', port='5432')
                 cursor = connection.cursor()
-                cursor.execute(f"""EXIST(SELECT * FROM spbu_table WHERE 
+                cursor.execute(f"""EXISTS(SELECT * FROM spbu_table WHERE 
                                 userid='{student.userid}' and educational_form='{program[0].educational_form}' and 
                                 pay_form='{program[0].pay_form}' and program='{program[0].program}')""")
                 connection.commit()
@@ -366,7 +366,7 @@ def update(concrete_students: List[ConcreteUniversityStudent]) -> bool:
                 connection = psycopg2.connect(database="postupatordb", user='postgres', password='adhog',
                                               host='127.0.0.1', port='5432')
                 cursor = connection.cursor()
-                cursor.execute(f"""EXIST(SELECT * FROM etu_table WHERE 
+                cursor.execute(f"""EXISTS(SELECT * FROM etu_table WHERE 
                                 userid='{student.userid}' and form='{program[0].form}' 
                                 and program='{program[0].program}')""")
                 connection.commit()
@@ -386,7 +386,8 @@ def check_if_user_is_exists(userid: str) -> bool:
     connection = psycopg2.connect(database="postupatordb", user='postgres', password='adhog',
                                   host='127.0.0.1', port='5432')
     cursor = connection.cursor()
-    cursor.execute(f"""EXIST(SELECT userid FROM main_table WHERE userid='{userid}')""")
+    cursor.execute(f"""SELECT userid FROM main_table WHERE userid='{userid}'""")
     connection.commit()
+    result = cursor.fetchone()
     connection.close()
-    return cursor.fetchone()
+    return result
