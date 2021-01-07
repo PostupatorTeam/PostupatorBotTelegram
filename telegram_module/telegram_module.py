@@ -79,19 +79,19 @@ def send_register(message):
 @bot.message_handler(commands=['addNotifications'])
 def add_notifications(message):
     id = message.chat.id
-    add_notifications(str(id))
+    middle_module.add_notifications(str(id))
 
 
 @bot.message_handler(commands=['removeNotifications'])
 def remove_notifications(message):
     id = message.chat.id
-    remove_notifications(str(id))
+    middle_module.remove_notifications(str(id))
 
 
 @bot.message_handler(commands=['getInfo'])
 def get_info(message):
     id = message.chat.id
-    info = get_info(str(id))
+    info = middle_module.get_info(str(id))
     bot_message = convert_to_message(info)
     bot.send_message(id, bot_message)
 
