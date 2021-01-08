@@ -7,6 +7,7 @@ from telegram_module.validators.validator import is_validate_university
 
 
 students = {}
+is_create = None
 
 
 def add_first_name_to_user(student: Student, name: str):
@@ -25,7 +26,6 @@ def add_program_to_user(student: Student, university: str):
     student.programs.append(models_storage.Program(None, None, None, None, None, university))
 
 
-# Строки для взаимодействия с пользователем
 def add_program_info(info: str, student: Student) -> Optional[str]:
     if student.programs[-1].university_name == 'ЛЭТИ':
         if student.programs[-1].program is None:
@@ -67,14 +67,13 @@ def add_program_info(info: str, student: Student) -> Optional[str]:
             return None
 
 
-# Строки для взаимодействия с пользователем
 def get_first_message(university: str) -> str:
     if university == 'ЛЭТИ':
         return 'Введите программу обучения'
     if university == 'РАНХИГС':
         return 'Введите филиал вуза'
     if university == 'СПБГУ':
-        return 'Введите направление обучения'
+        return 'Введите программу обучения'
 
 
 def add_user(chat_id: int):
@@ -86,7 +85,7 @@ def end_registration(chat_id: int) -> str:
     student = convert_to_student_database(students[chat_id], str(chat_id))
     del students[chat_id]
 
-    universities_data = middle_module.edit_user(student) if middle_module.check_if_user_is_exists(str(chat_id)) else \
+    universities_data = middle_module.edit_user(student) if not is_create else \
         middle_module.create_user(student)
 
     return convert_to_message(universities_data)

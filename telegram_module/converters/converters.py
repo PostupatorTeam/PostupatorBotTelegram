@@ -75,7 +75,6 @@ def convert_to_student_database(student: models_storage.Student, userid: str) ->
     return student_database
 
 
-# Строки для взаимодействия с пользователем
 def convert_to_message(universities: Dict[str, List[Tuple[Program, int]]]) -> str:
     message = ''
 

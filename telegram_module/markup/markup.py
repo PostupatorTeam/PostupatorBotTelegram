@@ -5,15 +5,13 @@ from models.University.interface.University import University
 from telegram_module.models.models_storage import Student
 
 
-# Строки для взаимодействия с пользователем
 def get_markup(user: Student, message: str) -> Union[ReplyKeyboardMarkup, ReplyKeyboardRemove]:
-    if user.lastname is None or message == 'Вы успешно зарегестрировались' or not user.is_added_program:
+    if user.lastname is None or message == 'Вы успешно зарегистрировались' or not user.is_added_program:
         return ReplyKeyboardRemove()
 
     return create_markup(user)
 
 
-# Строки для взаимодействия с пользователем
 def create_markup(user: Student) -> ReplyKeyboardMarkup:
     markup = ReplyKeyboardMarkup(one_time_keyboard=True, resize_keyboard=True)
 
