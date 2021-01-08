@@ -22,18 +22,18 @@ jobs:
         # Устанавливаем зависимости
         run: pip install -r requirements.txt
       - name: Run tests mapping
-        run: python3 -m unittest unit_tests/mapping_module/TestMappingModule.py
+        run: python3 -m unittest src/unit_tests/mapping_module/TestMappingModule.py
       - name: Run tests middle
-        run: python3 -m unittest unit_tests/middle_module/TestMiddleModule.py
+        run: python3 -m unittest src/unit_tests/middle_module/TestMiddleModule.py
       - name: Run tests EtuProgram
-        run: python3 -m unittest unit_tests/models/Program/TestEtuProgram.py
+        run: python3 -m unittest src/unit_tests/models/Program/TestEtuProgram.py
       - name: Run tests RanepaProgram
-        run: python3 -m unittest unit_tests/models/Program/TestRanepaProgram.py
+        run: python3 -m unittest src/unit_tests/models/Program/TestRanepaProgram.py
       - name: Run tests SpbuProgram
-        run: python3 -m unittest unit_tests/models/Program/TestSpbuProgram.py
+        run: python3 -m unittest src/unit_tests/models/Program/TestSpbuProgram.py
       - name: Run tests EtuUniversity
-        run: python3 -m unittest unit_tests/models/University/EtuUniversity/TestEtuUniversity.py
+        run: python3 -m unittest src/unit_tests/models/University/EtuUniversity/TestEtuUniversity.py
       - name: Run tests RanepaUniversity
-        run: python3 -m unittest unit_tests/models/University/RanepaUniversity/TestRanepaUniversity.py
+        run: python3 -m unittest src/unit_tests/models/University/RanepaUniversity/TestRanepaUniversity.py
       - name: Run tests SpbuUniversity
-        run: python3 -m unittest unit_tests/models/University/SpbuUniversity/TestSpbuUniversity.py  
+        run: python3 -m unittest src/unit_tests/models/University/SpbuUniversity/TestSpbuUniversity.py  
