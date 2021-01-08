@@ -10,3 +10,10 @@ etu_link_to_list = "https://etu.ru/ru/abiturientam/priyom-na-1-y-kurs/podavshie-
 
 spbu_base_link = "https://cabinet.spbu.ru/Lists/1k_EntryLists/"
 spbu_link_to_list = "https://cabinet.spbu.ru/Lists/1k_EntryLists/index_comp_groups.html"
+
+database_name = "postupatordb"
+user = "postgres"
+password = "adhog"
+host = "127.0.0.1"
+port = "5432"
+

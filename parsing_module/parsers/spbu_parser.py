@@ -24,8 +24,7 @@ def get_link_to_table(program: SpbuProgram) -> str:
 
     program_found = False
     form_found = False
-    tags = soup.find_all(["a", "b"])
-    for item in tags:
+    for item in soup.find_all(["a", "b"]):
         if program_found and form_found:
             if item.has_attr("href"):
                 if item.string.strip() == program.pay_form:
@@ -37,7 +36,7 @@ def get_link_to_table(program: SpbuProgram) -> str:
                 if educational_form_compare(program.educational_form, item.string.strip()):
                     form_found = True
                     continue
-            elif item.tag == "b":
+            elif item.name == "b":
                 break
         else:
             if item.name == "b" and item.has_attr("style"):
@@ -47,7 +46,7 @@ def get_link_to_table(program: SpbuProgram) -> str:
 
     message = \
         f"Failure to find educational program {str(program)} " \
-        f"on the Etu university site was detecting in SpbuUniversity class."
+        f"on the Spbu university site was detecting in SpbuUniversity class."
     logging.warning(message)
     message = \
         f"Не удалось найти образовательную программу {str(program)} на сайте университета СПБГУ."
@@ -64,7 +63,7 @@ def get_position(name: str, surname: str, lastname: str, program: SpbuProgram) -
         fio = tds[2].text.strip()
 
         if fio == f"{surname} {name} {lastname}":
-            return program, place
+            return program, int(place)
 
     message = \
         f"Failure to find student with this name on the Spbu university site was detecting in SpbuUniversity class."
