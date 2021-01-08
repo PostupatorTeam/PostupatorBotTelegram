@@ -199,7 +199,7 @@ def get_all_with_notifications() -> List[ConcreteUniversityStudent]:
     result = list()
     for student_data in cursor.fetchall():
         if student_data[4] == "РАНХИГС":
-            cursor.execute(get_info_by_id("ranepa_table", student_data.userid))
+            cursor.execute(get_info_by_id("ranepa_table", student_data[0]))
             connection.commit()
 
             programs = list()
@@ -209,7 +209,7 @@ def get_all_with_notifications() -> List[ConcreteUniversityStudent]:
 
             result.append(RanepaStudent(student_data[0], student_data[1], student_data[2], student_data[3], programs))
         elif student_data[4] == "СПБГУ":
-            cursor.execute(get_info_by_id("spbu_table", student_data.userid))
+            cursor.execute(get_info_by_id("spbu_table", student_data[0]))
             connection.commit()
 
             programs = list()
@@ -218,7 +218,7 @@ def get_all_with_notifications() -> List[ConcreteUniversityStudent]:
 
             result.append(SpbuStudent(student_data[0], student_data[1], student_data[2], student_data[3], programs))
         elif student_data[4] == "ЛЭТИ":
-            cursor.execute(get_info_by_id("etu_table", student_data.userid))
+            cursor.execute(get_info_by_id("etu_table", student_data[0]))
             connection.commit()
 
             programs = list()
